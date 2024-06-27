@@ -1,0 +1,44 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block title %} {{ news.title }} {% endblock title %}
+
+{% block content %}
+<style>
+    .contentSection {
+        padding: 20px;
+    }
+    .contentSection .row {
+        display: flex;
+        justify-content: center;
+    }
+    .contentSection .container {
+        max-width: 800px;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .left_content h2{
+        line-height: 40px;
+    }
+
+    .left_content img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 20px 0;
+    }
+</style>
+<section class="contentSection">
+    <div class="row">
+        <div class="container">
+            <div class="left_content">
+                <h2>{{ news.title }}</h2>
+                <h5>{{ news.publish_time }}</h5>
+                <img src="{{ news.image.url }}" alt="">
+                <p>{{ news.body }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
