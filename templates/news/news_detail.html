@@ -1,5 +1,6 @@
 {% extends 'news/base.html' %}
 {% load static %}
+{% load hitcount_tags %}
 
 {% block title %} {{ news.title }} {% endblock title %}
 
@@ -18,8 +19,19 @@
         margin: 0 auto;
     }
 
-    .left_content h2{
+    .left_content {
+        margin-top: 20px;
+    }
+
+    .left_content h2 {
         line-height: 40px;
+        font-size: 24px;
+    }
+
+    .left_content h5 {
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 10px;
     }
 
     .left_content img {
@@ -28,15 +40,97 @@
         display: block;
         margin: 20px 0;
     }
+
+    .card-footer {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .card-footer a {
+        font-weight: bold;
+        padding: 10px;
+        margin: 0 10px;
+        color: #333;
+        text-decoration: none;
+        border: 1px solid #333;
+        border-radius: 4px;
+    }
+
+    .card-footer a:hover {
+        background-color: #333;
+        color: #fff;
+    }
+
+    .comments {
+        margin-top: 20px;
+    }
+
+    .comments p {
+        margin-bottom: 10px;
+    }
+
+    .card-bodyl {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .text-danger {
+        color: #ff0000;
+        font-weight: bold;
+    }
 </style>
 <section class="contentSection">
     <div class="row">
         <div class="container">
             <div class="left_content">
                 <h2>{{ news.title }}</h2>
-                <h5>{{ news.publish_time }}</h5>
+                <h5>{{ news.publish_time }} | <i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for news %} Izohlar soni:{{ comment_count }} </h5>
+
                 <img src="{{ news.image.url }}" alt="">
                 <p>{{ news.body }}</p>
+                {% if request.user.is_authenticated and request.user.is_superuser %}
+                <div class="card-footer text-center">
+                    <a href="{% url 'news_update' news.slug %}">Tahrirlash</a>
+                    <a href="{% url 'news_delete' news.slug %}">Olib tashlash</a>
+                </div>
+                {% endif %}
+                <h3>Bu yangilikka {{ comment_count }} ta izoh qoldirilgan</h3>
+                {% for comment in comments %}
+                <div class="comments">
+                    <p class="font-weight-bold">
+                        {{ comment.user }}
+                        <span class="text-muted font-weight-normal">
+                            {{ comment.created_time }}
+
+                        </span>
+                    </p>
+                    {{ comment.body | linebreaks }}
+                </div>
+                {% endfor %}
+                {% if user.is_authenticated %}
+                <div class="col-md-8 card mb-4 mt-3">
+                    <div class="card-body">
+                        <h3>Izoh qoldirish</h3>
+                        <form action="" method="POST" style="margin-top: 1.3em">
+                            {% csrf_token %}
+                            {{ comment_form.as_p }}
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                Yuborish
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                {% else %}
+                <div class="card-bodyl">
+                    <p class="text-danger">
+                        Faqatgina royxatdan otgan foydalnuvchilar izoh qoldirish mumkin
+                    </p>
+                    <p>Izoh qolidirsh uchun <a href="{% url 'user_register' %}" class="text-success"> royxatdan oting</a>
+                        <a href="{% url 'login' %}" class="text-primary">Saytga kiring</a>
+                    </p>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>

@@ -1,0 +1,62 @@
+{% extends 'news/base.html' %}
+{% load static %}
+{% block title %} Logout sahifasi {% endblock title %}
+
+{% block content %}
+<style>
+    .left_content {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+.left_content h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.left_content p {
+    margin-bottom: 20px;
+    color: #666;
+    font-size: 16px;
+}
+
+.left_content .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.left_content .btn:hover {
+    background-color: #0056b3;
+}
+</style>
+<section class="contentSection">
+    <div class="row">
+        <div class="container">
+            <div class="left_content">
+                <h2>Web sitedan chiqish - logout</h2>
+                <p>Siz web sitedan chiqdingiz!</p>
+                <a href="{% url 'login' %}" class="btn btn-primary">Qaytadan kirish</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
+
+
+
+

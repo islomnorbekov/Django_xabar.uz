@@ -1,0 +1,109 @@
+{% extends 'news/base.html' %}
+{% load static %}
+{% block title %}Qidiruv natijalari{% endblock title %}
+
+{% block content %}
+
+<style>
+    /* Container for search results */
+.results-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+/* Heading for search results */
+.results-container h2 {
+    text-align: center;
+    color: #333;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+/* Search form */
+.search-form {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.search-form input[type="text"] {
+    padding: 10px;
+    font-size: 1em;
+    width: 300px;
+    max-width: 80%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.search-form button {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-form button:hover {
+    background-color: #0056b3;
+}
+
+/* Container for each news item */
+.news-item {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+}
+
+/* Title of the news item */
+.news-item h3 {
+    font-size: 1.5em;
+    margin: 0 0 10px 0;
+    color: #007bff;
+}
+
+/* Link for the news title */
+.news-item a {
+    color: #d9534f; /* Bootstrap's .text-danger color */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.news-item a:hover {
+    color: #c9302c; /* Darker shade on hover */
+}
+
+/* Image in the news item */
+.news-item img {
+    width: 30%;
+    display: block;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+/* Body text of the news item */
+.news-item p {
+    color: #666;
+    font-size: 1em;
+    line-height: 1.5;
+}
+</style>
+
+
+
+
+<div class="results-container">
+    <h2>Qidiruv natijalari</h2>
+    {% for yangilik in barcha_yangiliklar %}
+    <div class="news-item">
+        <h3>
+            <a href="{% url 'news_detail_page' yangilik.slug %}" class="text-danger">{{ yangilik.title }}</a>
+        </h3>
+        <p><img src="{{ yangilik.image.url }}" alt="{{ yangilik.title }} image"></p>
+        <p>{{ yangilik.body | truncatewords:20 }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

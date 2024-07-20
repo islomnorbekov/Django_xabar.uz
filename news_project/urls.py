@@ -22,7 +22,8 @@ from news_app import views as news_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('news_app.urls')),
+    path("", include('news_app.urls')),
+    path('account/', include('accounts.urls')),
 ]
 
 handler404 = news_views.Custom_404

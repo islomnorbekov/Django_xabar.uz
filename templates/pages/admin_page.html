@@ -1,0 +1,84 @@
+{% extends 'news/base.html' %}
+{% load static %}
+{% block title %} Admin sahifasi {% endblock title %}
+
+{% block content %}
+<style>
+    /* Styles for the entire content block */
+.content {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+/* Styles for the page title */
+.content h1 {
+    text-align: center;
+    color: #333;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+/* Styles for the subheading */
+.content h3 {
+    text-align: center;
+    color: #666;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+/* Styles for the table */
+.content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+/* Styles for the table headers */
+.content th {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Styles for the table data cells */
+.content td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+/* Add a hover effect for table rows */
+.content tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Style for alternating row colors */
+.content tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+</style>
+
+
+
+<div class="content">
+    <h1>Admin sahifasi</h1>
+    <h3>Barcha adminlar</h3>
+    <table>
+        <tr>
+            <th>Username</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+        </tr>
+        {% for user in admin_users %}
+        <tr>
+            <td>{{ user.username }}</td>
+            <td>{{ user.first_name }}</td>
+            <td>{{ user.last_name }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

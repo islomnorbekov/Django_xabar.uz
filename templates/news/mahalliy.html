@@ -1,6 +1,6 @@
 {% extends 'news/base.html' %}
 {% load static %}
-
+{% load hitcount_tags %}
 {% block title %} Mahalliy xabarlar {% endblock title %}
 
 {% block content %}
@@ -9,7 +9,10 @@
           <ul class="spost_nav">
             <li>
               <div class="media wow fadeInDown"> <a href="{{ news.get_absolute_url }}" class="media-left"> <img src="{{ news.image.url }}" style=""> </a>
-                <div class="media-body"> <a href="{{ news.get_absolute_url }}" class="catg_title"> {{ news.title }}</a> </div>
+                <div class="media-body"> <a href="{{ news.get_absolute_url }}" class="catg_title"> {{ news.title }}</a>
+                    <i class="fa fa-eye" aria-hidden="true"></i> {% get_hit_count for news %}
+
+                </div>
               </div>
             </li>
           </ul>
